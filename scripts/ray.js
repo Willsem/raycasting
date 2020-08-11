@@ -1,5 +1,5 @@
 class Ray {
-    constructor(x1, y1, x2, y2, dist) {
+    constructor(x1, y1, x2, y2, dist, width, number, delta) {
         this.start = createVector();
         this.start.x = x1;
         this.start.y = y1;
@@ -7,6 +7,10 @@ class Ray {
         this.finish.x = x2;
         this.finish.y = y2;
         this.dist = dist;
+        this.len = dist;
+        this.width = width;
+        this.number = number;
+        this.delta = delta;
     }
 
     show(walls) {
@@ -21,7 +25,24 @@ class Ray {
             }
         }, this);
 
-        line(this.start.x, this.start.y, this.finish.x, this.finish.y);
+        stroke(255);
+        strokeWeight(1);
+
+        line(
+            this.start.x / mapSize.x * miniMapSize.x,
+            this.start.y / mapSize.y * miniMapSize.y,
+            this.finish.x / mapSize.x * miniMapSize.x,
+            this.finish.y / mapSize.y * miniMapSize.y
+        );
+
+        noStroke();
+        fill(255 - this.dist / 1.5);
+        const h = (1 - this.len / (this.dist * Math.cos(radians(this.delta)))) * (height - 200);
+        const y = this.width * this.number <= miniMapSize.x ? miniMapSize.y : 0;
+        const dh = (height - h) / 2;
+        if (this.dist < this.len) {
+            rect(this.width * this.number, dh, this.width, h);
+        }
     }
 
     intersection(wall) {
