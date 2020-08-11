@@ -5,24 +5,27 @@ class Player {
         this.pos.y = y;
         this.angle = a;
         this.view = 30;
-        this.len = 300;
+        this.len = 400;
     }
 
     show(walls) {
         stroke(200, 100, 100);
         strokeWeight(3);
-        point(this.pos.x, this.pos.y);
+        point(this.pos.x / mapSize.x * miniMapSize.x, this.pos.y / mapSize.y * miniMapSize.y);
 
-        stroke(255);
-        strokeWeight(1);
-
-        for (let a = this.angle - this.view; a <= this.angle + this.view; a += 0.5) {
+        let wd = width / (4 * this.view);
+        let number = 0;
+        const delta = 2 * this.view / width;
+        for (let a = this.angle - this.view; a <= this.angle + this.view; a += delta) {
             let ray = new Ray(
                 this.pos.x,
                 this.pos.y,
                 this.pos.x + Math.cos(radians(a)) * this.len,
                 this.pos.y + Math.sin(radians(a)) * this.len,
-                this.len
+                this.len,
+                1,
+                number++,
+                a - this.angle
             );
 
             ray.show(walls);

@@ -12,6 +12,11 @@ class Wall {
     show() {
         stroke(200);
         strokeWeight(2);
-        line(this.start.x, this.start.y, this.finish.x, this.finish.y);
+        line(
+            this.start.x / mapSize.x * miniMapSize.x,
+            this.start.y / mapSize.y * miniMapSize.y,
+            this.finish.x / mapSize.x * miniMapSize.x,
+            this.finish.y / mapSize.y * miniMapSize.y
+        );
     }
 }

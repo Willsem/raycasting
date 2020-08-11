@@ -1,17 +1,23 @@
 let walls;
 let player;
+let mapSize;
+let miniMapSize;
 
 function setup() {
     createCanvas(500, 500);
     player = new Player(250, 250, 0);
+    mapSize = createVector(500, 500);
+    miniMapSize = createVector(100, 100);
 
     walls = [
         new Wall(0, 0, width, 0),
         new Wall(width, 0, width, height),
         new Wall(width, height, 0, height),
         new Wall(0, height, 0, 0),
-        new Wall(100, 0, 100, 100),
-        new Wall(100, 100, 470, 356),
+        new Wall(200, 0, 200, 200),
+        new Wall(200, 200, 350, 200),
+        new Wall(350, 200, 350, 400),
+        new Wall(350, 400, 150, 400),
     ];
 }
 
@@ -30,8 +36,8 @@ function draw() {
     }
 
     background(50);
-    walls.forEach(w => w.show());
     player.show(walls);
+    walls.forEach(w => w.show());
 }
 
 function keyPressed() {
